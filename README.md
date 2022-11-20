@@ -3,7 +3,7 @@
 
 ## :rocket: Knowledges
  - `ReactJS`
- - `Framer motion`
+ - `Framer Motion`
 
 ## :book: How to use
 To clone and run this application, you'll need [Git](https://git-scm.com/downloads) and [ReactJS](https://reactjs.org/docs/getting-started.html) installed on your computer. From your command line:
@@ -22,7 +22,7 @@ $ npm install
 $ npm start
 ```
 ## :link: Demo
-  - <a target="_blank" href="https://youcef-hammadi.github.io/TIC-TAC-TOE-GAME/"> Click Here </a> to see and play by yourself a demo of the game.
+  - <a target="_blank" href="https://youcefhmd.github.io/TIC-TAC-TOE-GAME/"> Click Here </a> to see and play by yourself a demo of the game.
 
 ## :mailbox: Contact
   - <a target="_blank" href="mailto:youcef.hammadi.y.s.p@gmail.com">E-mail</a>
