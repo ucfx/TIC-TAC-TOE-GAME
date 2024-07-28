@@ -1,5 +1,5 @@
 # Use the official Node.js 16 image as the base image
-FROM node:16
+FROM node:18
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json (or yarn.lock) to the container
 COPY package*.json ./
 
+COPY vite*.js ./
+COPY .eslintrc.cjs ./
 # Install project dependencies
 RUN npm install
 
@@ -20,4 +22,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the React app when the container starts
-CMD [ "npm", "start" ]
+CMD ["npm", "run", "dev"]
