@@ -1,71 +1,47 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useTicTacToe } from "./hooks/useTicTacToe";
 import Button from "./components/Button";
 import Square from "./components/Square";
 
 function App() {
-    const [squares, setSquares] = useState(Array(9).fill(""));
-    const [turn, setTurn] = useState("x");
-    const [winner, setWinner] = useState(null);
-
-    const checkEndTheGame = () => {
-        for (let square of squares) {
-            if (!square) return false;
-        }
-        return true;
-    };
-
-    const checkWinner = () => {
-        const combos = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6],
-        ];
-
-        for (let combo of combos) {
-            const [a, b, c] = combo;
-            if (
-                squares[a] &&
-                squares[a] === squares[b] &&
-                squares[a] === squares[c]
-            ) {
-                return squares[a];
-            }
-        }
-        return null;
-    };
-
-    const updateSquares = (ind) => {
-        if (squares[ind] || winner) {
-            return;
-        }
-        const s = squares;
-        s[ind] = turn;
-        setSquares(s);
-        setTurn(turn === "x" ? "o" : "x");
-        const W = checkWinner();
-        if (W) {
-            setWinner(W);
-        } else if (checkEndTheGame()) {
-            setWinner("x | o");
-        }
-    };
-
-    const resetGame = () => {
-        setSquares(Array(9).fill(""));
-        setTurn("x");
-        setWinner(null);
-    };
+    const {
+        squares,
+        turn,
+        winner,
+        isAiMode,
+        difficulty,
+        updateSquares,
+        resetGame,
+        toggleAiMode,
+        changeDifficulty,
+    } = useTicTacToe();
 
     return (
         <div className="tic-tac-toe">
-            <h1> TIC-TAC-TOE </h1>
-            <Button resetGame={resetGame} />
+            <h1>
+                TIC-TAC-TOE
+                {isAiMode
+                    ? ` (AI Mode - ${
+                          difficulty.charAt(0).toUpperCase() +
+                          difficulty.slice(1)
+                      } Level)`
+                    : ""}
+            </h1>
+            <div className="game-controls">
+                <Button resetGame={resetGame} text="Reset Game" />
+                <button onClick={toggleAiMode} className="ai-toggle">
+                    {isAiMode ? "Disable AI" : "Enable AI"}
+                </button>
+                {isAiMode && (
+                    <button
+                        onClick={changeDifficulty}
+                        className="difficulty-toggle"
+                    >
+                        {difficulty.charAt(0).toUpperCase() +
+                            difficulty.slice(1)}
+                    </button>
+                )}
+            </div>
             <div className="game">
                 {Array.from("012345678").map((ind) => (
                     <Square
@@ -93,16 +69,24 @@ function App() {
                             key={"child-box"}
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            exit={{ scale: 0, opacity: 0 }}
+                            exit={{
+                                scale: 0,
+                                opacity: 0,
+                            }}
                             className="text"
                         >
                             <motion.h2
-                                initial={{ scale: 0, y: 100 }}
+                                initial={{
+                                    scale: 0,
+                                    y: 100,
+                                }}
                                 animate={{
                                     scale: 1,
                                     y: 0,
                                     transition: {
-                                        y: { delay: 0.7 },
+                                        y: {
+                                            delay: 0.7,
+                                        },
                                         duration: 0.7,
                                     },
                                 }}
@@ -112,7 +96,9 @@ function App() {
                                     : "Win !! :)"}
                             </motion.h2>
                             <motion.div
-                                initial={{ scale: 0 }}
+                                initial={{
+                                    scale: 0,
+                                }}
                                 animate={{
                                     scale: 1,
                                     transition: {
@@ -134,13 +120,21 @@ function App() {
                                 )}
                             </motion.div>
                             <motion.div
-                                initial={{ scale: 0 }}
+                                initial={{
+                                    scale: 0,
+                                }}
                                 animate={{
                                     scale: 1,
-                                    transition: { delay: 1.5, duration: 0.3 },
+                                    transition: {
+                                        delay: 1.5,
+                                        duration: 0.3,
+                                    },
                                 }}
                             >
-                                <Button resetGame={resetGame} />
+                                <Button
+                                    resetGame={resetGame}
+                                    text="Play Again"
+                                />
                             </motion.div>
                         </motion.div>
                     </motion.div>
