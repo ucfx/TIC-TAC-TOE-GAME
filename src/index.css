@@ -14,6 +14,7 @@ body {
     margin: 40px auto;
     text-align: center;
 }
+
 .tic-tac-toe h1 {
     color: #eee;
 }
@@ -35,11 +36,15 @@ body {
     background: #eee;
     color: #222;
 }
+
 .tic-tac-toe .game {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    width: fit-content;
+    margin: 0 auto;
 }
+
 .turn {
     display: flex;
     justify-content: center;
@@ -87,10 +92,12 @@ body {
 .turn.left span.o {
     border-color: #eee;
 }
+
 .turn.right span.x::before,
 .turn.right span.x::after {
     background: #eee;
 }
+
 .turn.right::after {
     left: 50%;
 }
@@ -105,6 +112,7 @@ body {
     place-items: center;
     background-color: rgba(0, 0, 0, 0.7);
 }
+
 .winner .text {
     background: #111;
     width: 70%;
